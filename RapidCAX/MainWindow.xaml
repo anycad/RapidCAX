@@ -1,0 +1,53 @@
+﻿<Fluent:RibbonWindow x:Class="RapidCAX.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:RapidCAX"
+    xmlns:Fluent="urn:fluent-ribbon"
+    Title="RapidCAX 2020"
+    Height="600" Width="800" WindowState="Maximized">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!--Ribbon-->
+        <Fluent:Ribbon Grid.Row="0">
+            <!--Backstage-->
+            <Fluent:Ribbon.Menu>
+                <Fluent:Backstage>
+                    <Fluent:BackstageTabControl>
+                        <Fluent:BackstageTabItem Header="New" />
+                        <Fluent:BackstageTabItem Header="Print" />
+                        <Fluent:Button Header="Blue" />
+                    </Fluent:BackstageTabControl>
+                </Fluent:Backstage>
+            </Fluent:Ribbon.Menu>
+            <!--Tabs-->
+            <Fluent:RibbonTabItem Header="项目" IsSelected="True">
+                <Fluent:RibbonGroupBox KeyTip="FG" Header="项目创建" IsLauncherVisible="False" x:Name="groupLL">
+                    <Fluent:Button Header="新建1"></Fluent:Button>
+                    <Fluent:Button Header="新建1"></Fluent:Button>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+        </Fluent:Ribbon>
+
+        <!--StatusBar-->
+        <Fluent:StatusBar Grid.Row="3">
+            <Fluent:StatusBarItem Title="Ready"
+                          Value="150"
+                          HorizontalAlignment="Left">
+                <TextBlock Text="准备就绪" />
+            </Fluent:StatusBarItem>
+
+            <Separator HorizontalAlignment="Left" />
+
+            <Fluent:StatusBarItem Title="WebSite"
+                          HorizontalAlignment="Right"
+                          Value="www.anycad.net." />
+        </Fluent:StatusBar>
+    </Grid>
+    
+</Fluent:RibbonWindow>
