@@ -20,9 +20,34 @@
             <Fluent:Ribbon.Menu>
                 <Fluent:Backstage>
                     <Fluent:BackstageTabControl>
-                        <Fluent:BackstageTabItem Header="New" />
-                        <Fluent:BackstageTabItem Header="Print" />
-                        <Fluent:Button Header="Blue" />
+                        <Fluent:BackstageTabItem Header="新建">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock>新建一个新项目？</TextBlock>
+                                <Fluent:Button Header="项目1" Width="120" />
+                                <Fluent:Button Header="项目2" Width="120" />
+                            </StackPanel>
+                        </Fluent:BackstageTabItem>
+                        <Fluent:BackstageTabItem Header="打开">
+                            <Fluent:Button Header="打开本地文件..." 
+                                           Command="{x:Static local:MainWindow.RapidCommand}" 
+                                           CommandParameter="open" />
+                        </Fluent:BackstageTabItem>
+                        <Fluent:BackstageTabItem Header="保存">
+                            <Fluent:Button Header="保存到本地" 
+                                           Command="{x:Static local:MainWindow.RapidCommand}" 
+                                           CommandParameter="save" />
+                        </Fluent:BackstageTabItem>
+                        <Fluent:BackstageTabItem Header="导入">
+                            <Fluent:Button Header="STEP/IGES..." 
+                                           Command="{x:Static local:MainWindow.RapidCommand}" 
+                                           CommandParameter="importBrep" />
+                        </Fluent:BackstageTabItem>
+                        <Fluent:BackstageTabItem Header="关于">
+                            <Fluent:Button Header="www.anycad.net" />
+                        </Fluent:BackstageTabItem>
+                        <Fluent:Button Header="退出" 
+                                       Command="{x:Static local:MainWindow.RapidCommand}" 
+                                       CommandParameter="exit"/>
                     </Fluent:BackstageTabControl>
                 </Fluent:Backstage>
             </Fluent:Ribbon.Menu>
@@ -36,7 +61,8 @@
 
             <Fluent:RibbonTabItem Header="建模">
                 <Fluent:RibbonGroupBox Header="基本体" IsLauncherVisible="False">
-                    <Fluent:Button Header="球"></Fluent:Button>
+                    <Fluent:Button Header="球" Command="{x:Static local:MainWindow.RapidCommand}" 
+                                   CommandParameter="createSphere" />
                     <Fluent:Button Header="新建1"></Fluent:Button>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>

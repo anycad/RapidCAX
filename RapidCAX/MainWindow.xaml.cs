@@ -15,21 +15,30 @@ using System.Windows.Shapes;
 
 namespace RapidCAX
 {
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow 
     {
+        public static readonly RoutedCommand RapidCommand = new RoutedCommand("Rapid", typeof(MainWindow));
+
+        public ViewerHost mViewerHost;
         public MainWindow()
         {
             InitializeComponent();
 
-            
+            CommandBindings.Add(new CommandBinding(RapidCommand, RapidExecuted));
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            this.viewerHost.Child = new AnyCAD.Forms.RenderControl();
+            mViewerHost = new ViewerHost(this.viewerHost);
+        }
+
+        void RapidExecuted(object sender, ExecutedRoutedEventArgs e)
+        {            
+            mViewerHost.ExecuteCommand(e.Parameter.ToString());
         }
     }
 }
