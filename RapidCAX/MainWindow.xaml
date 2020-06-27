@@ -4,7 +4,8 @@
     xmlns:local="clr-namespace:RapidCAX"
     xmlns:Fluent="urn:fluent-ribbon"
     Title="RapidCAX 2020"
-    Height="600" Width="800" WindowState="Maximized">
+    Height="600" Width="800" WindowState="Maximized" 
+    Loaded="Window_Loaded">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -26,16 +27,32 @@
                 </Fluent:Backstage>
             </Fluent:Ribbon.Menu>
             <!--Tabs-->
-            <Fluent:RibbonTabItem Header="项目" IsSelected="True">
-                <Fluent:RibbonGroupBox KeyTip="FG" Header="项目创建" IsLauncherVisible="False" x:Name="groupLL">
+            <Fluent:RibbonTabItem Header="首页" IsSelected="True">
+                <Fluent:RibbonGroupBox Header="选择" IsLauncherVisible="False">
+                    <Fluent:Button Header="点选"></Fluent:Button>
                     <Fluent:Button Header="新建1"></Fluent:Button>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+
+            <Fluent:RibbonTabItem Header="建模">
+                <Fluent:RibbonGroupBox Header="基本体" IsLauncherVisible="False">
+                    <Fluent:Button Header="球"></Fluent:Button>
+                    <Fluent:Button Header="新建1"></Fluent:Button>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+
+            <Fluent:RibbonTabItem Header="仿真">
+                <Fluent:RibbonGroupBox Header="计算" IsLauncherVisible="False">
+                    <Fluent:Button Header="计算"></Fluent:Button>
                     <Fluent:Button Header="新建1"></Fluent:Button>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
         </Fluent:Ribbon>
 
+        <WindowsFormsHost Grid.Row="1" x:Name="viewerHost"/>
+
         <!--StatusBar-->
-        <Fluent:StatusBar Grid.Row="3">
+        <Fluent:StatusBar Grid.Row="2">
             <Fluent:StatusBarItem Title="Ready"
                           Value="150"
                           HorizontalAlignment="Left">
