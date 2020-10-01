@@ -16,6 +16,7 @@ namespace RapidCAX
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            AnyCAD.Foundation.GlobalInstance.Initialize();
             base.OnStartup(e);
         }
     }

@@ -23,7 +23,7 @@ namespace RapidCAX
     {
         public static readonly RoutedCommand RapidCommand = new RoutedCommand("Rapid", typeof(MainWindow));
 
-        public ViewerHost mViewerHost;
+        public DocumentView mDocumentView;
         public MainWindow()
         {
             InitializeComponent();
@@ -33,12 +33,17 @@ namespace RapidCAX
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            mViewerHost = new ViewerHost(this.viewerHost);
+            mDocumentView = new DocumentView(this.documentViewHost);
         }
 
         void RapidExecuted(object sender, ExecutedRoutedEventArgs e)
         {            
-            mViewerHost.ExecuteCommand(e.Parameter.ToString());
+            mDocumentView.ExecuteCommand(e.Parameter.ToString());
+        }
+
+        private void projectBrowser_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+
         }
     }
 }

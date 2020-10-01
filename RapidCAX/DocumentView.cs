@@ -9,16 +9,20 @@ using System.Windows;
 
 namespace RapidCAX
 {
-    public class ViewerHost
+    public class DocumentView
     {
         public RenderControl mRenderCtrl;
         public Document mDocument;
         public DbView mDbView;
-        public ViewerHost(System.Windows.Forms.Integration.WindowsFormsHost host)
+        public DocumentView(System.Windows.Forms.Integration.WindowsFormsHost host)
         {
             mRenderCtrl = new RenderControl();
             host.Child = mRenderCtrl;
+            mRenderCtrl.Load += MRenderCtrl_Load;
+        }
 
+        private void MRenderCtrl_Load(object sender, EventArgs e)
+        {
             mDocument = new Document();
             mDbView = mDocument.Initialize("3D");
 
