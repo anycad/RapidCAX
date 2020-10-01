@@ -4,6 +4,14 @@
              xmlns:local="clr-namespace:RapidCAX"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Fluent;component/Themes/Generic.xaml" />
+
+                <ResourceDictionary Source="pack://application:,,,/Fluent;component/Themes/Themes/Dark.Blue.xaml" />
+     
+                <ResourceDictionary Source="Resources\StringResource.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -4,7 +4,7 @@
     xmlns:ad="https://github.com/Dirkster99/AvalonDock"
     xmlns:local="clr-namespace:RapidCAX"
     xmlns:Fluent="urn:fluent-ribbon"
-    Title="RapidCAX 2020"
+    Title="RapidCAX 2021"
     Height="600" Width="800" WindowState="Maximized" 
     Loaded="Window_Loaded">
 
@@ -19,48 +19,17 @@
         <Fluent:Ribbon Grid.Row="0">
             <!--Backstage-->
             <Fluent:Ribbon.Menu>
-                <Fluent:Backstage>
-                    <Fluent:BackstageTabControl>
-                        <Fluent:BackstageTabItem Header="新建">
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock>新建一个新项目？</TextBlock>
-                                <Fluent:Button Header="项目1" Width="120" />
-                                <Fluent:Button Header="项目2" Width="120" />
-                            </StackPanel>
-                        </Fluent:BackstageTabItem>
-                        <Fluent:BackstageTabItem Header="打开">
-                            <Fluent:Button Header="打开本地文件..." 
-                                           Command="{x:Static local:MainWindow.RapidCommand}" 
-                                           CommandParameter="open" />
-                        </Fluent:BackstageTabItem>
-                        <Fluent:BackstageTabItem Header="保存">
-                            <Fluent:Button Header="保存到本地" 
-                                           Command="{x:Static local:MainWindow.RapidCommand}" 
-                                           CommandParameter="save" />
-                        </Fluent:BackstageTabItem>
-                        <Fluent:BackstageTabItem Header="导入">
-                            <Fluent:Button Header="STEP/IGES..." 
-                                           Command="{x:Static local:MainWindow.RapidCommand}" 
-                                           CommandParameter="importBrep" />
-                        </Fluent:BackstageTabItem>
-                        <Fluent:BackstageTabItem Header="关于">
-                            <Fluent:Button Header="www.anycad.net" />
-                        </Fluent:BackstageTabItem>
-                        <Fluent:Button Header="退出" 
-                                       Command="{x:Static local:MainWindow.RapidCommand}" 
-                                       CommandParameter="exit"/>
-                    </Fluent:BackstageTabControl>
-                </Fluent:Backstage>
+                <local:RapidBackstageCtrl/>
             </Fluent:Ribbon.Menu>
             <!--Tabs-->
-            <Fluent:RibbonTabItem Header="首页" IsSelected="True">
+            <Fluent:RibbonTabItem Header="{StaticResource Home}" IsSelected="True">
                 <Fluent:RibbonGroupBox Header="选择" IsLauncherVisible="False">
                     <Fluent:Button Header="点选"></Fluent:Button>
                     <Fluent:Button Header="新建1"></Fluent:Button>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
-            <Fluent:RibbonTabItem Header="建模">
+            <Fluent:RibbonTabItem Header="{StaticResource Design}">
                 <Fluent:RibbonGroupBox Header="基本体" IsLauncherVisible="False">
                     <Fluent:Button Header="球" Command="{x:Static local:MainWindow.RapidCommand}" 
                                    CommandParameter="createSphere" />
@@ -68,7 +37,7 @@
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
-            <Fluent:RibbonTabItem Header="仿真">
+            <Fluent:RibbonTabItem Header="{StaticResource Simulation}">
                 <Fluent:RibbonGroupBox Header="计算" IsLauncherVisible="False">
                     <Fluent:Button Header="计算"></Fluent:Button>
                     <Fluent:Button Header="新建1"></Fluent:Button>
@@ -76,6 +45,7 @@
             </Fluent:RibbonTabItem>
         </Fluent:Ribbon>
 
+        <!--DockingManager-->
         <ad:DockingManager x:Name="dockingManager" Grid.Row="1">
             <ad:DockingManager.Theme>
                 <ad:Vs2013LightTheme/>
@@ -83,7 +53,7 @@
             <ad:LayoutRoot>
                 <ad:LayoutPanel Orientation="Horizontal">
                     <ad:LayoutAnchorablePane DockWidth="200">
-                        <ad:LayoutAnchorable Title="项目" CanClose="False" CanFloat="False" CanHide="False" >
+                        <ad:LayoutAnchorable Title="{StaticResource Project}" CanClose="False" CanFloat="False" CanHide="False" >
                             <TreeView x:Name="projectBrowser" SelectedItemChanged="projectBrowser_SelectedItemChanged">
 
                             </TreeView>
@@ -91,23 +61,21 @@
                     </ad:LayoutAnchorablePane>
                     <ad:LayoutPanel Orientation="Vertical">
                         <ad:LayoutDocumentPane IsMaximized="True">
-                            <ad:LayoutDocument Title="三维视图" CanClose="False">
+                            <ad:LayoutDocument Title="{StaticResource ThreeD}" CanClose="False">
                                 <WindowsFormsHost x:Name="documentViewHost"/>
                             </ad:LayoutDocument>
                         </ad:LayoutDocumentPane>
 
+                        <ad:LayoutAnchorablePane DockHeight="120" DockMinHeight="50">
+                            <ad:LayoutAnchorable Title="{StaticResource Output}" CanClose="False" CanFloat="True" CanHide="False" AutoHideMinWidth="200">
+                                <local:CommandLineControl></local:CommandLineControl>
 
-                        <ad:LayoutAnchorablePane DockHeight="150" DockMinHeight="50">
-                            <ad:LayoutAnchorable Title="属性" CanClose="False" CanFloat="True" CanHide="False" AutoHideMinWidth="200">
-                                <ScrollViewer x:Name="outputList" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                    <StackPanel x:Name="outputPanel" Width="{Binding ElementName=outputList, Path=Width, Mode=OneWay}"/>
-                                </ScrollViewer>
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>
                     </ad:LayoutPanel>
-                    
-                <ad:LayoutAnchorablePane DockWidth="230" DockMinWidth="230">
-                        <ad:LayoutAnchorable Title="属性" CanClose="False" CanFloat="True" CanHide="False" AutoHideMinWidth="200">
+
+                    <ad:LayoutAnchorablePane DockWidth="200" DockMinWidth="200">
+                        <ad:LayoutAnchorable Title="{StaticResource Properties}" CanClose="False" CanFloat="True" CanHide="False" AutoHideMinWidth="200">
                             <ScrollViewer x:Name="scrList" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                                 <StackPanel x:Name="propertyBrowser" Width="{Binding ElementName=scrList, Path=Width, Mode=OneWay}"/>
                             </ScrollViewer>
@@ -117,14 +85,14 @@
             </ad:LayoutRoot>
         </ad:DockingManager>
 
-       
+
 
         <!--StatusBar-->
         <Fluent:StatusBar Grid.Row="2">
             <Fluent:StatusBarItem Title="Ready"
                           Value="150"
                           HorizontalAlignment="Left">
-                <TextBlock Text="准备就绪" />
+                <TextBlock Text="{StaticResource Ready}" />
             </Fluent:StatusBarItem>
 
             <Separator HorizontalAlignment="Left" />
@@ -134,5 +102,5 @@
                           Value="www.anycad.net." />
         </Fluent:StatusBar>
     </Grid>
-    
+
 </Fluent:RibbonWindow>
