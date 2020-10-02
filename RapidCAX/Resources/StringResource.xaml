@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:RapidCAX"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="File">File</sys:String>
     <sys:String x:Key="Ready">Ready</sys:String>
     <sys:String x:Key="Home">Home</sys:String>
     <sys:String x:Key="Design">Design</sys:String>
@@ -12,4 +13,9 @@
     <sys:String x:Key="Command">Command</sys:String>
     <sys:String x:Key="Execute">Execute</sys:String>
     <sys:String x:Key="ThreeD">3D</sys:String>
+    <sys:String x:Key="Import">Import</sys:String>
+    <sys:String x:Key="ImportSTEP">STEP</sys:String>
+    <sys:String x:Key="ImportIGES">IGES</sys:String>
+    <sys:String x:Key="View">View</sys:String>
+    <sys:String x:Key="ZoomAll">Zoom All</sys:String>
 </ResourceDictionary>

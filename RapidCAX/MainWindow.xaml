@@ -23,9 +23,16 @@
             </Fluent:Ribbon.Menu>
             <!--Tabs-->
             <Fluent:RibbonTabItem Header="{StaticResource Home}" IsSelected="True">
-                <Fluent:RibbonGroupBox Header="选择" IsLauncherVisible="False">
-                    <Fluent:Button Header="点选"></Fluent:Button>
-                    <Fluent:Button Header="新建1"></Fluent:Button>
+                <Fluent:RibbonGroupBox Header="{StaticResource Import}" IsLauncherVisible="False">
+                    <Fluent:Button Header="{StaticResource ImportSTEP}" Command="{x:Static local:MainWindow.RapidCommand}" 
+                                   CommandParameter="ImportSTEP"></Fluent:Button>
+                    <Fluent:Button Header="{StaticResource ImportIGES}" Command="{x:Static local:MainWindow.RapidCommand}" 
+                                   CommandParameter="ImportIGES"></Fluent:Button>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="{StaticResource View}" IsLauncherVisible="False">
+                    <Fluent:Button Header="{StaticResource ZoomAll}" Command="{x:Static local:MainWindow.RapidCommand}" 
+                                   CommandParameter="ZoomAll"></Fluent:Button>
+                    <Fluent:Button Header="3D"></Fluent:Button>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 

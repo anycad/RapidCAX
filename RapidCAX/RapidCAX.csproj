@@ -153,9 +153,7 @@
   <ItemGroup>
     <None Include="Resources\icon.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Themes\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\app.ico" />
   </ItemGroup>
