@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
+
 namespace RapidCAX
 {
     public class DocumentView
@@ -80,6 +81,24 @@ namespace RapidCAX
             else if(name == "ZoomAll")
             {
                 mRenderCtrl.ZoomAll(0.9f);
+            }
+            else if(name == "BackgroundColor")
+            {
+                var dlg = new System.Windows.Forms.ColorDialog();
+                if(dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    mRenderCtrl.SetBackgroundColor(dlg.Color.R / 255.0f, dlg.Color.G / 255.0f, dlg.Color.B / 255.0f, 1);
+                }
+            }
+            else if(name == "BackgroundImage")
+            {
+                OpenFileDialog dlg = new OpenFileDialog();
+                dlg.Filter = "Image Files(*.jpg;*.png)|*.jpg;*.png";
+                if (dlg.ShowDialog() == true)
+                {
+                    var bkg = new ImageBackground(ImageTexture2D.Create(dlg.FileName));
+                    mRenderCtrl.GetViewer().SetBackground(bkg);
+                }
             }
             else
             {

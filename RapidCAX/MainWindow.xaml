@@ -34,6 +34,12 @@
                                    CommandParameter="ZoomAll"></Fluent:Button>
                     <Fluent:Button Header="3D"></Fluent:Button>
                 </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="{StaticResource Background}" IsLauncherVisible="False">
+                    <Fluent:Button Header="{StaticResource Image}" Command="{x:Static local:MainWindow.RapidCommand}" 
+                                   CommandParameter="BackgroundImage"></Fluent:Button>
+                    <Fluent:Button Header="{StaticResource Color}" Command="{x:Static local:MainWindow.RapidCommand}" 
+                                   CommandParameter="BackgroundColor"></Fluent:Button>
+                </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
             <Fluent:RibbonTabItem Header="{StaticResource Design}">
