@@ -16,21 +16,17 @@
                     <Fluent:Button Header="项目2" Width="120" />
                 </StackPanel>
             </Fluent:BackstageTabItem>
-            <Fluent:BackstageTabItem Header="打开">
-                <Fluent:Button Header="打开本地文件..." 
+            <Fluent:BackstageTabItem Header="{StaticResource Open}">
+                <Fluent:Button Header="{StaticResource Open}" 
                                                Command="{x:Static local:MainWindow.RapidCommand}" 
-                                               CommandParameter="open" />
+                                               CommandParameter="Open" />
             </Fluent:BackstageTabItem>
-            <Fluent:BackstageTabItem Header="保存">
-                <Fluent:Button Header="保存到本地" 
+            <Fluent:BackstageTabItem Header="{StaticResource Save}">
+                <Fluent:Button Header="{StaticResource Save}" 
                                                Command="{x:Static local:MainWindow.RapidCommand}" 
-                                               CommandParameter="save" />
+                                               CommandParameter="Save" />
             </Fluent:BackstageTabItem>
-            <Fluent:BackstageTabItem Header="导入">
-                <Fluent:Button Header="STEP/IGES..." 
-                                               Command="{x:Static local:MainWindow.RapidCommand}" 
-                                               CommandParameter="importBrep" />
-            </Fluent:BackstageTabItem>
+
             <Fluent:BackstageTabItem Header="关于">
                 <Fluent:Button Header="www.anycad.net" />
             </Fluent:BackstageTabItem>

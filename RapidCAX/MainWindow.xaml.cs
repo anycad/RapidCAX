@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AnyCAD.Rapid.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,7 @@ namespace RapidCAX
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             mDocumentView = new DocumentView(this.documentViewHost);
+            projectBrowser.ItemsSource = mDocumentView.mProjectBrower;
         }
 
         void RapidExecuted(object sender, ExecutedRoutedEventArgs e)
@@ -43,7 +45,7 @@ namespace RapidCAX
 
         private void projectBrowser_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-
+           
         }
     }
 }

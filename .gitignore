@@ -4,5 +4,5 @@
 
 /packages
 /.vs
-/RapidCAX/bin
-/RapidCAX/obj
+obj
+bin
