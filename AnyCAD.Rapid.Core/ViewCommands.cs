@@ -22,6 +22,36 @@ namespace AnyCAD.Rapid.Core
         }
     }
 
+    class UndoCommand : UICommand
+    {
+        public UndoCommand()
+        {
+            this.Name = "Undo";
+        }
+
+        public override bool Execute(UICommandContext ctx)
+        {
+            ctx.Document.Undo();
+            ctx.RequestUpdate();
+
+            return true;
+        }
+    }
+    class RedoCommand : UICommand
+    {
+        public RedoCommand()
+        {
+            this.Name = "Redo";
+        }
+
+        public override bool Execute(UICommandContext ctx)
+        {
+            ctx.Document.Redo();
+            ctx.RequestUpdate();
+            return true;
+        }
+    }
+
     class ColorBackgroundCommand : UICommand
     {
         public ColorBackgroundCommand()

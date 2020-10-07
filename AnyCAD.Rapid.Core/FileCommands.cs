@@ -41,10 +41,6 @@ namespace AnyCAD.Rapid.Core
 
                     ctx.RequestUpdate();
 
-                    var item = new BrowerNodeItem();
-                    item.DisplayName = shapeElement.GetName();
-                    item.Tag = shapeElement.GetId();
-                    ctx.mDocView.mProjectBrower.Add(item);
                 }
 
             }

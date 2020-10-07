@@ -1,4 +1,5 @@
-﻿using AnyCAD.Rapid.Core;
+﻿using AnyCAD.Foundation;
+using AnyCAD.Rapid.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,17 +26,35 @@ namespace RapidCAX
         public static readonly RoutedCommand RapidCommand = new RoutedCommand("Rapid", typeof(MainWindow));
 
         public DocumentView mDocumentView;
+        public RapidDocumentListener mDocumentListener;
         public MainWindow()
         {
             InitializeComponent();
 
             CommandBindings.Add(new CommandBinding(RapidCommand, RapidExecuted));
+
+            mDocumentListener = new RapidDocumentListener();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            mDocumentView = new DocumentView(this.documentViewHost);
-            projectBrowser.ItemsSource = mDocumentView.mProjectBrower;
+            mDocumentView = new DocumentView(this.documentViewHost, 
+                (PickedItem item, Document doc, ElementId id)=>
+                {
+                    
+                    propertyBrowser.Children.Clear();
+
+                    if (!id.IsValid())
+                        return;
+
+                    this.outputCtrl.outputList.Items.Add(id.GetInteger());
+                    Expander expander = new Expander();
+                    expander.Header = "Element";
+
+                    propertyBrowser.Children.Add(expander);
+
+                });
+            projectBrowser.ItemsSource = mDocumentListener.mProjectBrower;
         }
 
         void RapidExecuted(object sender, ExecutedRoutedEventArgs e)

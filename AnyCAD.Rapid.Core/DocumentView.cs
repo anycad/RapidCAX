@@ -10,19 +10,7 @@ using System.Threading.Tasks;
 
 namespace AnyCAD.Rapid.Core
 {
-    public class BrowerNodeItem
-    {
-        public string Icon { get; set; }
-        public string DisplayName { get; set; }
-        public Object Tag { get; set; }
 
-        public ObservableCollection<BrowerNodeItem> Children { get; set; }
-
-        public BrowerNodeItem()
-        {
-            Children = new ObservableCollection<BrowerNodeItem>();
-        }
-    }
 
     public class DocumentView
     {
@@ -32,14 +20,16 @@ namespace AnyCAD.Rapid.Core
         public ElementId mMaterialId;
         public DocumentSceneNode mRootSceneNode;
 
-        public ObservableCollection<BrowerNodeItem> mProjectBrower = new ObservableCollection<BrowerNodeItem>();
 
         public UICommandContext mContext;
 
         public Dictionary<String, UICommand> mCommands = new Dictionary<string, UICommand>();
 
-        public DocumentView(System.Windows.Forms.Integration.WindowsFormsHost host)
+        public delegate void SelectElementHandler(PickedItem item, Document doc, ElementId id);
+        SelectElementHandler mSelectionCallback;
+        public DocumentView(System.Windows.Forms.Integration.WindowsFormsHost host, SelectElementHandler selector)
         {
+            mSelectionCallback = selector;
             mRenderCtrl = new RenderControl();
             host.Child = mRenderCtrl;
             mRenderCtrl.Load += MRenderCtrl_Load;
@@ -56,6 +46,7 @@ namespace AnyCAD.Rapid.Core
                 }
             }
 
+            GlobalInstance.RegisterElementSchema(Assembly.GetExecutingAssembly());
         }
         public void ResetDocument(Document doc)
         {
@@ -82,6 +73,13 @@ namespace AnyCAD.Rapid.Core
             mMaterialId = mDocument.AddElement(material);
 
             mDocument.EnableTransaction(true);
+
+            mRenderCtrl.SetSelectCallback((PickedItem item) =>
+            {
+                var node = item.GetNode();
+                var elementId = node == null ? ElementId.InvalidId : new ElementId(node.GetUserId());
+                mSelectionCallback(item, mDocument, elementId);
+            });
         }      
        
 

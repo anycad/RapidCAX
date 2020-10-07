@@ -10,6 +10,10 @@
     Loaded="Window_Loaded">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="349*"/>
+            <ColumnDefinition Width="446*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -17,7 +21,7 @@
         </Grid.RowDefinitions>
 
         <!--Ribbon-->
-        <Fluent:Ribbon Grid.Row="0">
+        <Fluent:Ribbon Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,-0.445,0">
             <!--Backstage-->
             <Fluent:Ribbon.Menu>
                 <local:RapidBackstageCtrl/>
@@ -31,6 +35,10 @@
                                    CommandParameter="ImportIGES"></Fluent:Button>
                 </Fluent:RibbonGroupBox>
                 <Fluent:RibbonGroupBox Header="{StaticResource View}" IsLauncherVisible="False">
+                    <Fluent:Button Header="{StaticResource Undo}" Command="{x:Static local:MainWindow.RapidCommand}" 
+                                   CommandParameter="Undo"></Fluent:Button>
+                    <Fluent:Button Header="{StaticResource Redo}" Command="{x:Static local:MainWindow.RapidCommand}" 
+                                   CommandParameter="Redo"></Fluent:Button>
                     <Fluent:Button Header="{StaticResource ZoomAll}" Command="{x:Static local:MainWindow.RapidCommand}" 
                                    CommandParameter="ZoomAll"></Fluent:Button>
                 </Fluent:RibbonGroupBox>
@@ -44,8 +52,8 @@
 
             <Fluent:RibbonTabItem Header="{StaticResource Design}">
                 <Fluent:RibbonGroupBox Header="基本体" IsLauncherVisible="False">
-                    <Fluent:Button Header="球" Command="{x:Static local:MainWindow.RapidCommand}" 
-                                   CommandParameter="createSphere" />
+                    <Fluent:Button Header="Sphere" Command="{x:Static local:MainWindow.RapidCommand}" 
+                                   CommandParameter="Sphere" />
                     <Fluent:Button Header="新建1"></Fluent:Button>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
@@ -59,7 +67,7 @@
         </Fluent:Ribbon>
 
         <!--DockingManager-->
-        <ad:DockingManager x:Name="dockingManager" Grid.Row="1">
+        <ad:DockingManager x:Name="dockingManager" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,-0.445,0">
             <ad:DockingManager.Theme>
                 <ad:Vs2013LightTheme/>
             </ad:DockingManager.Theme>
@@ -69,7 +77,7 @@
                         <ad:LayoutAnchorable Title="{StaticResource Project}" CanClose="False" CanFloat="False" CanHide="False" >
                             <TreeView x:Name="projectBrowser" SelectedItemChanged="projectBrowser_SelectedItemChanged">
                                 <TreeView.ItemTemplate>
-                                    <HierarchicalDataTemplate DataType="{x:Type localCore:BrowerNodeItem}" ItemsSource="{Binding Children}">
+                                    <HierarchicalDataTemplate DataType="{x:Type local:BrowerNodeItem}" ItemsSource="{Binding Children}">
                                         <StackPanel Orientation="Horizontal">
                                             <Image VerticalAlignment="Center" Source="{Binding Icon}" Width="16" Height="16" Margin="0,0,2,2"/>
                                             <TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}"/>
@@ -88,7 +96,7 @@
 
                         <ad:LayoutAnchorablePane DockHeight="120" DockMinHeight="50">
                             <ad:LayoutAnchorable Title="{StaticResource Output}" CanClose="False" CanFloat="True" CanHide="False" AutoHideMinWidth="200">
-                                <local:CommandLineControl></local:CommandLineControl>
+                                <local:CommandLineControl x:Name="outputCtrl"></local:CommandLineControl>
 
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>
@@ -108,7 +116,7 @@
 
 
         <!--StatusBar-->
-        <Fluent:StatusBar Grid.Row="2">
+        <Fluent:StatusBar Grid.Row="2" Grid.ColumnSpan="2" Margin="0,0,-0.445,-0.111">
             <Fluent:StatusBarItem Title="Ready"
                           Value="150"
                           HorizontalAlignment="Left">

@@ -4,6 +4,8 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:String x:Key="File">File</sys:String>
     <sys:String x:Key="Save">Save</sys:String>
+    <sys:String x:Key="Undo">Undo</sys:String>
+    <sys:String x:Key="Redo">Redo</sys:String>
     <sys:String x:Key="Open">Open</sys:String>
     <sys:String x:Key="Ready">Ready</sys:String>
     <sys:String x:Key="Home">Home</sys:String>
