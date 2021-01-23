@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="RapidCAX.TransformPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RapidCAX"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="300">
+    <Grid>
+        <StackPanel>
+            <Label Content="Location:"/>
+            <StackPanel Orientation="Horizontal" Margin="40,0,0,0">
+                <Label Content="X:" Width="50"/>
+                <TextBox Width="100" Text="{Binding LocationX}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="40,0,0,0">
+                <Label Content="Y:" Width="50"/>
+                <TextBox Width="100" Text="{Binding LocationY}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="40,0,0,0">
+                <Label Content="Z:" Width="50"/>
+                <TextBox Width="100" Text="{Binding LocationZ}"></TextBox>
+            </StackPanel>
+            <Button Content="Applay" Margin="37,7,37,0" Height="20" Click="Button_Click" IsEnabled="{Binding LocationModified}"></Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

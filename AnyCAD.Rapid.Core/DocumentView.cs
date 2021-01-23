@@ -82,7 +82,11 @@ namespace AnyCAD.Rapid.Core
             });
         }      
        
-
+        public void UpdateView()
+        {
+            mRootSceneNode.RequstUpdate();
+            mRenderCtrl.RequestDraw(EnumUpdateFlags.Scene);
+        }
         public void ExecuteCommand(string name)
         {
             UICommand command;

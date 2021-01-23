@@ -14,13 +14,13 @@ namespace AnyCAD.Rapid.Core
         public SphereElementSchema()
             :base("Sphere")
         {
-            Add("Radius", 5.0f);
+            AddParameter("Radius", ParameterCreator.Create(5.0f));
         }
 
         public override bool OnParameterChanged(Element instance, ParameterDict parameters)
         {
             var shape = CastShapeElement(instance);
-            var radius = parameters.AsDouble("Radius", 5.0f);
+            var radius = parameters.Cast("Radius", 5.0f);
             shape.SetShape(ShapeBuilder.MakeSphere(GP.Origin(), radius));
             return true;
         }

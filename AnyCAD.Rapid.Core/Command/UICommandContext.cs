@@ -42,8 +42,7 @@ namespace AnyCAD.Rapid.Core
         {
             mDocView.mRootSceneNode.ComputeBoundingBox();
             mDocView.mRootSceneNode.RequstUpdate();
-            mDocView.mRenderCtrl.GetContext().UpdateWorld();
-            mDocView.mRenderCtrl.RequestDraw();
+            mDocView.mRenderCtrl.RequestDraw(EnumUpdateFlags.Scene);
         }
     }
 }

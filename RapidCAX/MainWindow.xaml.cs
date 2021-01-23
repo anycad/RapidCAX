@@ -48,11 +48,7 @@ namespace RapidCAX
                         return;
 
                     this.outputCtrl.outputList.Items.Add(id.GetInteger());
-                    Expander expander = new Expander();
-                    expander.Header = "Element";
-
-                    propertyBrowser.Children.Add(expander);
-
+                    CreateElementPropertyUI(doc, id);
                 });
             projectBrowser.ItemsSource = mDocumentListener.mProjectBrower;
         }
@@ -60,6 +56,32 @@ namespace RapidCAX
         void RapidExecuted(object sender, ExecutedRoutedEventArgs e)
         {            
             mDocumentView.ExecuteCommand(e.Parameter.ToString());
+        }
+
+        void CreateElementPropertyUI(Document doc, ElementId id)
+        {
+            var element = doc.FindElement(id);
+            if (element == null)
+                return;
+            {
+                Expander expander = new Expander();
+                expander.Header = "Element";
+                expander.Content = new BasicPage(element);
+                propertyBrowser.Children.Add(expander);
+                expander.IsExpanded = true;
+            }
+
+            DrawableElement de = DrawableElement.Cast(element);
+            if(de != null)
+            {
+                Expander expander = new Expander();
+                expander.Header = "Location";
+                var page = new TransformPage(de);
+                page.UpdateViewEvent += mDocumentView.UpdateView;
+                expander.Content = page;
+                propertyBrowser.Children.Add(expander);
+                expander.IsExpanded = true;
+            }
         }
 
         private void projectBrowser_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
