@@ -10,9 +10,9 @@ namespace AnyCAD.Rapid.Core
 {
     public class UICommandContext
     {
-        public DocumentView mDocView;
+        public MyDocumentViewer mDocView;
 
-        public UICommandContext(DocumentView docView)
+        public UICommandContext(MyDocumentViewer docView)
         {
             mDocView = docView;
         }

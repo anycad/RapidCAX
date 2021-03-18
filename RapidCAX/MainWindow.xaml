@@ -77,7 +77,7 @@
                         <ad:LayoutAnchorable Title="{StaticResource Project}" CanClose="False" CanFloat="False" CanHide="False" >
                             <TreeView x:Name="projectBrowser" SelectedItemChanged="projectBrowser_SelectedItemChanged">
                                 <TreeView.ItemTemplate>
-                                    <HierarchicalDataTemplate DataType="{x:Type local:BrowerNodeItem}" ItemsSource="{Binding Children}">
+                                    <HierarchicalDataTemplate DataType="{x:Type localCore:BrowerNodeItem}" ItemsSource="{Binding Children}">
                                         <StackPanel Orientation="Horizontal">
                                             <Image VerticalAlignment="Center" Source="{Binding Icon}" Width="16" Height="16" Margin="0,0,2,2"/>
                                             <TextBlock VerticalAlignment="Center" Text="{Binding DisplayName}"/>

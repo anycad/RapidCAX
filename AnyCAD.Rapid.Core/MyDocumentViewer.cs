@@ -10,44 +10,70 @@ using System.Threading.Tasks;
 
 namespace AnyCAD.Rapid.Core
 {
-
-
-    public class DocumentView
+    public class MyDocumentViewer
     {
-        public RenderControl mRenderCtrl;
+        //数据
         public Document mDocument;
         public DbView mDbView;
         public ElementId mMaterialId;
+
+        //显示
+        public RenderControl mRenderCtrl;
         public DocumentSceneNode mRootSceneNode;
 
-
+        //交互
         public UICommandContext mContext;
-
-        public Dictionary<String, UICommand> mCommands = new Dictionary<string, UICommand>();
 
         public delegate void SelectElementHandler(PickedItem item, Document doc, ElementId id);
         SelectElementHandler mSelectionCallback;
-        public DocumentView(System.Windows.Forms.Integration.WindowsFormsHost host, SelectElementHandler selector)
+        public MyDocumentViewer(System.Windows.Forms.Integration.WindowsFormsHost host, SelectElementHandler selector)
         {
-            mSelectionCallback = selector;
+            //创建三维控件
             mRenderCtrl = new RenderControl();
             host.Child = mRenderCtrl;
-            mRenderCtrl.Load += MRenderCtrl_Load;
+            mRenderCtrl.Load += InitializeRenderControlOnLoad;
 
-            var types = Assembly.GetExecutingAssembly().GetTypes();
-            foreach (var type in types)
-            {
-                if (type.IsSubclassOf(typeof(UICommand)))
-                {
-                    var command = Activator.CreateInstance(type) as UICommand;
-                    if (command.Name.Length == 0)
-                        continue;
-                    mCommands[command.Name] = command;
-                }
-            }
+            //用于选择的回调方法
+            mSelectionCallback = selector;
 
+            //注册命令
+            UICommandManager.LoadCommands(Assembly.GetExecutingAssembly());
+            //注册图元模板
             GlobalInstance.RegisterElementSchema(Assembly.GetExecutingAssembly());
         }
+
+        private void InitializeRenderControlOnLoad(object sender, EventArgs e)
+        {
+            // 初始化文档
+            mDocument = new Document();
+            mDbView = mDocument.Initialize("3D");
+
+            //创建一个默认的材质，先禁用事务
+            mDocument.EnableTransaction(false);
+            var material = new MaterialElement();
+            material.SetName("Default");
+            mMaterialId = mDocument.AddElement(material);
+            mDocument.EnableTransaction(true);
+
+            //初始化显示节点
+            mRootSceneNode = new DocumentSceneNode(mDocument);
+            mRenderCtrl.ShowSceneNode(mRootSceneNode);
+
+            //初始化交互
+            mContext = new UICommandContext(this);
+
+            mRenderCtrl.SetSelectCallback((PickedItem item) =>
+            {
+                var node = item.GetNode();
+                var elementId = node == null ? ElementId.InvalidId : new ElementId(node.GetUserId());
+                mSelectionCallback(item, mDocument, elementId);
+            });
+        }
+
+        /// <summary>
+        /// 换个文档显示
+        /// </summary>
+        /// <param name="doc"></param>
         public void ResetDocument(Document doc)
         {
             mDocument = doc;
@@ -57,31 +83,6 @@ namespace AnyCAD.Rapid.Core
             mContext.RequestUpdate();
             mRenderCtrl.ZoomAll(0.8f);
         }
-        private void MRenderCtrl_Load(object sender, EventArgs e)
-        {
-            mDocument = new Document();
-            mDbView = mDocument.Initialize("3D");
-
-            mRootSceneNode = new DocumentSceneNode(mDocument);
-            mRenderCtrl.ShowSceneNode(mRootSceneNode);
-
-            mContext = new UICommandContext(this);
-
-            mDocument.EnableTransaction(false);
-            var material = new MaterialElement();
-            material.SetName("Default");
-            mMaterialId = mDocument.AddElement(material);
-
-            mDocument.EnableTransaction(true);
-
-            mRenderCtrl.SetSelectCallback((PickedItem item) =>
-            {
-                var node = item.GetNode();
-                var elementId = node == null ? ElementId.InvalidId : new ElementId(node.GetUserId());
-                mSelectionCallback(item, mDocument, elementId);
-            });
-        }      
-       
         public void UpdateView()
         {
             mRootSceneNode.RequstUpdate();
@@ -89,11 +90,7 @@ namespace AnyCAD.Rapid.Core
         }
         public void ExecuteCommand(string name)
         {
-            UICommand command;
-            if (mCommands.TryGetValue(name, out command))
-            {
-                command.Execute(mContext);
-            }
+            UICommandManager.ExecuteCommand(name, mContext);
         }
     }
 }

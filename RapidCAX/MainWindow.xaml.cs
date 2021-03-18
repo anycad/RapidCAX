@@ -25,20 +25,20 @@ namespace RapidCAX
     {
         public static readonly RoutedCommand RapidCommand = new RoutedCommand("Rapid", typeof(MainWindow));
 
-        public DocumentView mDocumentView;
-        public RapidDocumentListener mDocumentListener;
+        public MyDocumentViewer mDocumentView;
+        public MyDocumentListener mDocumentListener;
         public MainWindow()
         {
             InitializeComponent();
 
             CommandBindings.Add(new CommandBinding(RapidCommand, RapidExecuted));
 
-            mDocumentListener = new RapidDocumentListener();
+            mDocumentListener = new MyDocumentListener();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            mDocumentView = new DocumentView(this.documentViewHost, 
+            mDocumentView = new MyDocumentViewer(this.documentViewHost, 
                 (PickedItem item, Document doc, ElementId id)=>
                 {
                     

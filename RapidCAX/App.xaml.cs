@@ -19,5 +19,11 @@ namespace RapidCAX
             AnyCAD.Foundation.GlobalInstance.Initialize();
             base.OnStartup(e);
         }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            AnyCAD.Foundation.GlobalInstance.Destroy();
+            base.OnExit(e);
+        }
     }
 }

@@ -6,8 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RapidCAX
+namespace AnyCAD.Rapid.Core
 {
+    /// <summary>
+    /// 保存树节点信息
+    /// </summary>
     public class BrowerNodeItem
     {
         public string Icon { get; set; }
@@ -22,15 +25,23 @@ namespace RapidCAX
         }
     }
 
-    public class RapidDocumentListener : DocumentListener
+    /// <summary>
+    /// 用于接收文档变化的监听器
+    /// </summary>
+    public class MyDocumentListener : DocumentListener
     {
         public ObservableCollection<BrowerNodeItem> mProjectBrower = new ObservableCollection<BrowerNodeItem>();
 
-        public RapidDocumentListener()
+        public MyDocumentListener()
         {
             DocumentListener.SetListener(this);
         }
 
+        /// <summary>
+        /// 当增加图元的调用
+        /// </summary>
+        /// <param name="pDocument"></param>
+        /// <param name="ids">图元的ID列表</param>
         public override void OnAddElements(Document pDocument, ElementIdSet ids)
         {
             foreach(var id in ids)
@@ -47,6 +58,11 @@ namespace RapidCAX
 
         }
 
+        /// <summary>
+        /// 当删除图元时候调用
+        /// </summary>
+        /// <param name="pDocument"></param>
+        /// <param name="ids">删除图元的ID列表</param>
         public override void OnRemoveElements(Document pDocument, ElementIdSet ids)
         {
             var nodes = mProjectBrower.Where(x => ids.Contains((ElementId)x.Tag)).ToList();
