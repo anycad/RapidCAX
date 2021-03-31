@@ -54,7 +54,8 @@
                 <Fluent:RibbonGroupBox Header="基本体" IsLauncherVisible="False">
                     <Fluent:Button Header="Sphere" Command="{x:Static local:MainWindow.RapidCommand}" 
                                    CommandParameter="Sphere" />
-                    <Fluent:Button Header="新建1"></Fluent:Button>
+                    <Fluent:Button Header="AddTag" Command="{x:Static local:MainWindow.RapidCommand}" 
+                                   CommandParameter="AddTag"/>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 

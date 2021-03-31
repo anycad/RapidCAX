@@ -1,21 +1,17 @@
-﻿using AnyCAD.Forms;
-using AnyCAD.Foundation;
+﻿using AnyCAD.Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AnyCAD.Rapid.Core
 {
-
-
-    class ShapeCommand : UICommand
+    class AddTagCommand : UICommand
     {
-        public ShapeCommand()
+        public AddTagCommand()
         {
-            this.Name = "Sphere";
+            this.Name = "AddTag";
         }
 
         public override bool Execute(UICommandContext ctx)
@@ -24,16 +20,20 @@ namespace AnyCAD.Rapid.Core
             var transaction = new UndoTransaction(ctx.Document);
             transaction.Start(this.Name);
 
-            //创建个球
-            var element = SphereElementSchema.Create(ctx.Document);
-            // 显示
-            ctx.ShowElement(element);
+            var text = new MyTextElement();
+            text.Text = "这是一个好引擎！";
+            text.Position = new Vector3(100, 100, 100);
 
+            text.AddElement(ctx.Document);
+
+            text.Show(ctx.RenderView.GetScene());
+
+            
             //提交事务
             transaction.Commit();
 
             ctx.RequestUpdate();
-           
+
             return true;
         }
     }

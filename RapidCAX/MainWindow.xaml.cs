@@ -31,13 +31,15 @@ namespace RapidCAX
         {
             InitializeComponent();
 
+            //命令绑定
             CommandBindings.Add(new CommandBinding(RapidCommand, RapidExecuted));
-
+            // 注册文档消息
             mDocumentListener = new MyDocumentListener();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            //创建文档视图控件
             mDocumentView = new MyDocumentViewer(this.documentViewHost, 
                 (PickedItem item, Document doc, ElementId id)=>
                 {
@@ -47,10 +49,14 @@ namespace RapidCAX
                     if (!id.IsValid())
                         return;
 
+                    //增加一条日志
                     this.outputCtrl.outputList.Items.Add(id.GetInteger());
+
+                    //显示选中图元的属性
                     CreateElementPropertyUI(doc, id);
                 });
-            projectBrowser.ItemsSource = mDocumentListener.mProjectBrower;
+            // 绑定构件浏览数据
+            this.projectBrowser.ItemsSource = mDocumentListener.mProjectBrower;
         }
 
         void RapidExecuted(object sender, ExecutedRoutedEventArgs e)
@@ -58,6 +64,11 @@ namespace RapidCAX
             mDocumentView.ExecuteCommand(e.Parameter.ToString());
         }
 
+        /// <summary>
+        /// 创建属性
+        /// </summary>
+        /// <param name="doc"></param>
+        /// <param name="id"></param>
         void CreateElementPropertyUI(Document doc, ElementId id)
         {
             var element = doc.FindElement(id);

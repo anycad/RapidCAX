@@ -80,6 +80,20 @@ namespace AnyCAD.Rapid.Core
             mRootSceneNode.SetDocument(mDocument);
             mDbView = DbView.Cast(mDocument.FindElement(mDocument.GetActiveDbViewId()));
 
+            var table = mDocument.FindTable("UserElement");
+            var userIds = table.GetIds();
+            var scene = mContext.RenderView.GetScene();
+            foreach (var id in userIds)
+            {
+                var element = mDocument.FindElement(id);
+                if(MyTextElement.IsKindOf(element))
+                {
+                    var text = new MyTextElement();
+                    text.Load(UserElement.Cast(element));
+                    text.Show(scene);
+                }
+            }
+
             mContext.RequestUpdate();
             mRenderCtrl.ZoomAll(0.8f);
         }
